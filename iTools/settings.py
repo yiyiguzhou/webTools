@@ -119,3 +119,65 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 
 STATIC_URL = '/static/'
+
+LOGGING = {
+    'version': 1,   # 日志版本
+    'disable_existing_loggers': False,  # True：disable原有日志相关配置
+    'formatters': {     # 日志格式
+        'verbose': {    # 详细格式
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'simple': {  # 简单格式
+            'format': '%(levelname)s %(message)s'
+        },
+    },
+    'handlers': {   # 日志handlers
+        'file': {   # 文件handler
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': './controller.log',
+            'formatter': 'verbose'
+        },
+        'console': {    # 控制器handler，INFO级别以上的日志都要Simple格式输出到控制台
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        },
+        'mail_admins': {    # 邮件handler，ERROR级别以上的日志要特殊过滤后输出
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'propagate': True,
+        },
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        'django.request.post': {
+            'handlers': ['mail_admins'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'django.db': {
+            # # django also has database level logging
+            'handlers': ['console', 'mail_admins', 'file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'django.db.backends': {
+            'handlers': ['console', 'file'],
+            'propagate': True,
+            'level': 'DEBUG',
+        },
+        'polls': {
+            'handlers': ['console', 'mail_admins', 'file'],
+            'level': 'DEBUG',
+        }
+    }
+}
+
