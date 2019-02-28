@@ -1,0 +1,8 @@
+
+<form action="{% url 'md5:encrypt' %}" method="post">
+{% csrf_token %}
+<div>
+    <input name="text" type="text">
+</div>
+<input type="submit" value="Vote">
+</form>

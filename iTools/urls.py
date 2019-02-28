@@ -22,5 +22,6 @@ from . import views
 urlpatterns = [
     # url(r'hello^$', views.hello),
     path('polls/', include('polls.urls')),
+    path('md5/', include('md5.urls')),
     path('admin/', admin.site.urls),
 ]

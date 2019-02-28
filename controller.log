@@ -1,2 +1,7 @@
 INFO 2019-01-03 20:50:02,523 views 8872 11800 <QueryDict: {'csrfmiddlewaretoken': ['zw8JcKMZZsVqk6p2WLPBuvFqUOqhxyTtMhDN1JdYLVZyLnfU0d6o202qNHTaZsiP'], 'choice': ['2']}>
 INFO 2019-01-03 20:50:26,735 views 8872 11800 <QueryDict: {'csrfmiddlewaretoken': ['MlwjrMpk0m7UQlDQlDJytEQ9z9lMsNPIZ61ngLQjMPb2hCtIp50l19d9s2OFUHe4'], 'choice': ['2']}>
+INFO 2019-01-04 19:56:55,436 views 1416 11228 <QueryDict: {'csrfmiddlewaretoken': ['ILTk1yTVoVSuhuODvoyIFw57vKjLqaRuVwooQxkUaoWCILEvzQPvd1s7oDMES4gQ'], 'choice': ['2']}>
+INFO 2019-02-28 19:31:52,766 views 10608 19020 <QueryDict: {'csrfmiddlewaretoken': ['48CogllXYRwrio5Oi5IkgtC2GtILoERRQgzY3I84o7nYnVU01NtMKzRMQgcV9LFN'], 'choice': ['2']}>
+INFO 2019-02-28 19:31:54,945 views 10608 19020 <QueryDict: {'csrfmiddlewaretoken': ['07JGu0ojHQfxLYvgPljw2Qo4qdas1RKnMfGghnbq7664Qvksy34YwWDOA0ECMYyj']}>
+INFO 2019-02-28 19:31:58,150 views 10608 20688 <QueryDict: {'csrfmiddlewaretoken': ['WDCMAnPqhcl8k5Eujo3UuEBHj2hM70KFILzmnKCxHscFpCtG26OmYKQrtPLWS7yB'], 'choice': ['1']}>
+INFO 2019-02-28 19:32:05,445 views 10608 20688 <QueryDict: {}>

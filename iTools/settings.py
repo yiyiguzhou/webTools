@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'md5.apps.Md5Config',
     'polls.apps.PollsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
