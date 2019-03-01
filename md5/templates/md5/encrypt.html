@@ -1,5 +1,5 @@
 
-<form action="{% url 'md5:encrypt' %}" method="post">
+<form action="{% url 'md5:encrypt_method' %}" method="post">
 {% csrf_token %}
 <div>
     <input name="text" type="text">

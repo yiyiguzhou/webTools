@@ -24,22 +24,41 @@ class IndexView(generic.ListView):
 
 
 class Encrypt(generic.DetailView):
-    model = EncryptedRecord
+    # model = EncryptedRecord
     template_name = 'md5/encrypt.html'
+    context_object_name = "need_encrypt_list"
+
+    def get_object(self, queryset=None):
+        # try:
+        #     a = get_object_or_404(EncryptedRecord, encry_date=timezone.now())
+        # except:
+        #     a = None
+        return None
 
 
-def encrypt(request):
-    encrypt_record = get_object_or_404(EncryptedRecord)
+def encrypt_result(request, pk):
+    if request.method == 'GET':
+        encrypt_line = get_object_or_404(EncryptedRecord, text=pk)
+        return render(request, 'md5/encrypt_result.html', {'encrypt_line': encrypt_line})
+    else:
+        return HttpResponseRedirect(reverse('md5:index.html', kwargs={'latest_encrypt_list': EncryptedRecord.objects.all()[:]}))
+
+
+def encrypt_method(request):
+    try:
+        encrypt_record = EncryptedRecord.objects.all()
+    except Exception as e:
+        pass
     if request.method == 'POST':
         text = request.POST.get('text', '')
         if text:
             try:
                 encrypt_line = encrypt_record.get(text=text)
             except:
-                encrypt_text = base64.encodebytes(bytes(text))
-                encrypt_line = EncryptedRecord.objects.create(encry_date=timezone.now(), encry_text=encrypt_text, text=text)
-            return render(request, 'md5/encrypt.html', {
-                'encrypt_line': encrypt_line,
-                'error_message': "encrypt page error",
-            })
-    return render(request, 'md5/index.html')
+                try:
+                    encrypt_text = base64.encodebytes(bytes(text, 'utf-8'))
+                    encrypt_line = EncryptedRecord.objects.create(encry_date=timezone.now(), encry_text=encrypt_text, text=text)
+                except Exception as e:
+                    return HttpResponseRedirect(reverse('md5:', kwargs={'latest_encrypt_list': EncryptedRecord.objects.all()[:]}))
+            return HttpResponseRedirect(reverse('md5:encrypt_result', args=(text,)))
+    return HttpResponseRedirect(reverse('md5:index.html', kwargs={'latest_encrypt_list': EncryptedRecord.objects.all()[:]}))
