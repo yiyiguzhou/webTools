@@ -53,11 +53,11 @@ def encrypt_method(request):
         text = request.POST.get('text', '')
         if text:
             try:
-                encrypt_line = encrypt_record.get(text=text)
+                encrypt_record.get(text=text)
             except:
                 try:
                     encrypt_text = base64.encodebytes(bytes(text, 'utf-8'))
-                    encrypt_line = EncryptedRecord.objects.create(encry_date=timezone.now(), encry_text=encrypt_text, text=text)
+                    EncryptedRecord.objects.create(encry_date=timezone.now(), encry_text=encrypt_text, text=text)
                 except Exception as e:
                     return HttpResponseRedirect(reverse('md5:', kwargs={'latest_encrypt_list': EncryptedRecord.objects.all()[:]}))
             return HttpResponseRedirect(reverse('md5:encrypt_result', args=(text,)))
