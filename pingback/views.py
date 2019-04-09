@@ -6,8 +6,9 @@ from django.urls import reverse
 from django.shortcuts import render, get_object_or_404
 from django.shortcuts import render,render_to_response
 from django import forms
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from .models import User
+import os
 
 
 def index(request):
@@ -23,7 +24,7 @@ class UserForm(forms.Form):
     headImg = forms.FileField()
 
 
-def register(request):
+def upload(request):
     if request.method == "POST":
         uf = UserForm(request.POST, request.FILES)
         if uf.is_valid():
@@ -46,3 +47,31 @@ def register(request):
     except Exception as e:
         print(e)
         return None
+
+
+def upload_file(request):
+    if request.method == 'POST':
+        uploaded_files = request.FILES.getlist("file")
+        try:
+            for file in uploaded_files:
+                filename = file.name
+                _handle_uploaded_file(os.path.join("pingback", "upload_files", filename), file)
+                result_json = {'method': 'post'}
+        except Exception as e:
+            result_json = {"msg": str(e)}
+        result = {
+            'error': result_json
+        }
+        return JsonResponse(result, safe=False)
+    else:
+        return JsonResponse({"error": "method is not post"})
+
+
+def _handle_uploaded_file(filename, f):
+    try:
+        destination = open(filename, 'wb+')
+        for chunk in f.chunks():
+            destination.write(chunk)
+        destination.close()
+    except Exception as e:
+        raise Exception('save %s failed: %s' % (filename, str(e)))

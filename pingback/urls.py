@@ -15,5 +15,6 @@ app_name = 'pingback'
 
 urlpatterns = [
     path('', views.index),
-    path('disk/', views.register),
+    path('upload/', views.upload),
+    path('upload_file/', views.upload_file),
 ]
